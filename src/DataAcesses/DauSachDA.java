@@ -22,12 +22,12 @@ public class DauSachDA {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             while ((line = bufferedReader.readLine()) != null) {
                 tmp = line.split("#"); // # la ky tu phan tach giua cac truong trong file
-                dauSach = new DauSach(tmp[0], tmp[1], tmp[2], tmp[3], tmp[4], tmp[5]);
-                lst.insertTail(dauSach);
-            }
-            bufferedReader.close();
-            fileReader.close();
-        } catch (FileNotFoundException ex) {
+            dauSach = new DauSach(tmp[0], tmp[1], tmp[2], tmp[3], tmp[4], tmp[5]);
+            lst.insertTail(dauSach);
+        }
+        bufferedReader.close();
+        fileReader.close();
+    } catch (FileNotFoundException ex) {
             System.err.println("Không thể mở file hoặc không tồn tại file " + fileName);
         } catch (IOException ex) {
             System.err.println("Không thể đọc file " + fileName);

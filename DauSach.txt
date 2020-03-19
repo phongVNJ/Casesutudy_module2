@@ -7,3 +7,6 @@ DS6#anh#van hoc#trong doan#1#con
 DS7#toan hoc#toan#quoc dung#1#het
 DS8#anh van#van#the anh#1#con
 DS9#tap chi#tap chi#khong biet#1#con
+321#BladeMaster#TFT#Riot#10#còn
+333#Ocean#TFT#Lucas#11#còn
+234#Tin Học Hiện Đại #Tn học#Vũ Kiều Anh #20#còn
