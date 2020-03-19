@@ -4,15 +4,16 @@ import Businese.NguoiMuonBL;
 import Businese.PhieuMuonBL;
 import Businese.SachBL;
 import MUONSACH.NguoiMuon;
-import javafx.scene.transform.Scale;
-
 import java.util.Scanner;
 
-public class QLNguoiMuon {
+import LIST.ListNguoiMuon.NodeNguoiMuon;
+
+public class QLNguoiMuon<ListNguoiMuon> {
     Scanner scanner = new Scanner(System.in);
     NguoiMuonBL nguoiMuonBL = new NguoiMuonBL();
     SachBL sachBL = new SachBL();
     PhieuMuonBL phieuMuonBL = new PhieuMuonBL();
+
     public void menu() {
         do {
             System.out.println();
@@ -65,7 +66,7 @@ public class QLNguoiMuon {
     private void sapXepTheoTen() {
         System.out.println();
         System.out.println("DANH SÁCH NGƯỜI MƯỢN");
-        ListNguoiMuon lst = nguoiMuonBL.layDanhSach();
+        LIST.ListNguoiMuon lst = nguoiMuonBL.layDanhSach();
         lst.sapXepTheoTen();
         NodeNguoiMuon tg = lst.getHead();
 
@@ -89,7 +90,7 @@ public class QLNguoiMuon {
         System.out.println();
 //        System.out.println("---------------------------------------\n");
         System.out.println("DANH SÁCH ");
-        ListNguoiMuon lst = nguoiMuonBL.layDanhSach();
+        LIST.ListNguoiMuon lst = nguoiMuonBL.layDanhSach();
         NodeNguoiMuon tg = lst.getHead();
         lst.sapXepTheoTen();
 
@@ -126,6 +127,7 @@ public class QLNguoiMuon {
 
         System.out.println("\n-----------------------------------------------------------------------------\n");
     }
+
     private void sua() {
         System.out.println();
         System.out.println("        SỬA THÔNG TIN NGƯỜI MƯỢN ");
@@ -244,13 +246,14 @@ public class QLNguoiMuon {
 
     }
 
-    private void timTen() {     System.out.println();
+    private void timTen() {
+        System.out.println();
 //        System.out.println("---------------------------------------\n");
         System.out.println("            TÌM KIẾM THEO TÊN");
         System.out.println("-------------------***-------------------");
         System.out.print("  Nhập vào tên cần tìm kiếm: ");
         String tenNguoiMuon = scanner.nextLine();
-        ListNguoiMuon lst = nguoiMuonBL.timTen(tenNguoiMuon);
+        LIST.ListNguoiMuon lst = nguoiMuonBL.timTen(tenNguoiMuon);
         NodeNguoiMuon tg = lst.getHead();
 
         System.out.println();
@@ -281,7 +284,7 @@ public class QLNguoiMuon {
         System.out.println("-------------------***-------------------");
         System.out.print("Nhập vào địa chỉ cần tìm kiếm: ");
         String diaChi = scanner.nextLine();
-        ListNguoiMuon lst = nguoiMuonBL.timDiaChi(diaChi);
+        LIST.ListNguoiMuon lst = nguoiMuonBL.timDiaChi(diaChi);
         NodeNguoiMuon tg = lst.getHead();
 
         System.out.println();
@@ -293,9 +296,6 @@ public class QLNguoiMuon {
                     "SĐT",
                     "Email");
             System.out.println("-----------------------------------------------------------------------------------------------------------------------------");
-
-
         }
-
-
+    }
 }

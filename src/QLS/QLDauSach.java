@@ -3,6 +3,12 @@ import Businese.DauSachBL;
 import Businese.SachBL;
 import LIST.ListDauSach;
 import MUONSACH.DauSach;
+import MUONSACH.Sach;
+import LIST.ListDauSach;
+import LIST.ListDauSach.NodeDauSach;
+import LIST.ListSach;
+import LIST.ListSach.NodeSach;
+import java.util.Scanner;
 
 import java.util.Scanner;
 
@@ -14,21 +20,21 @@ public class QLDauSach {
     public void menu() {
         do {
             System.out.println();
-//            System.out.println("----------------------------\n");
-            System.out.println("            QUẢN LÍ ĐẦU SÁCH");
-            System.out.println("-----------------***---------------");
-            System.out.println("|  1. Thêm đầu sách.                |");
-            System.out.println("|  2. Sửa thông tin.                |");
-            System.out.println("|  3.Xóa đầu sách.                  |");
-            System.out.println("|  4.Xem danh sách.                 |");
-            System.out.println("|  5.Sắp xếp theo tên.              |");
-            System.out.println("|  6.Tìm kiếm.                      |");
-            System.out.println("|  9.Quay lại menu chính            |");
-            System.out.println("|  0.Thoát chương trình             |");
-            System.out.println("-------------------------------------");
-            System.out.print(" Mời chọn chức năng: ");
+//            System.out.println("---------------------------------------\n");
+            System.out.println("             QUẢN LÝ ĐẦU SÁCH");
+            System.out.println("-------------------***-------------------");
+            System.out.println("|   1. Thêm đầu sách.                   |");
+            System.out.println("|   2. Sửa thông tin.                   |");
+            System.out.println("|   3. Xóa đầu sách.                    |");
+            System.out.println("|   4. Xem danh sách.                   |");
+            System.out.println("|   5. Sắp xếp theo tên.                |");
+            System.out.println("|   6. Tìm kiếm.                        |");
+            System.out.println("|   9. Quay lại menu chính.             |");
+            System.out.println("|   0. Thoát chương trình.              |");
+            System.out.println("-----------------------------------------");
+            System.out.print("  Mời chọn chức năng: ");
             int n = Integer.parseInt(scanner.nextLine());
-            switch (n){
+            switch (n) {
                 case 1:
                     them();
                     break;
@@ -54,74 +60,60 @@ public class QLDauSach {
                     System.exit(0);
                     break;
             }
-            System.out.println("\n---------------------KẾT THÚC QUẢN LÍ ĐẦU SÁCH------------------\n");
-        }while (true);
+
+            System.out.println("\n---------------------KẾT THÚC MENU QUẢN LÝ ĐẦU SÁCH ------------------\n");
+        } while (true);
     }
 
-    private void xoa() {
-        System.out.println();
-        System.out.println("XÓA THÔNG TIN SÁCH ");
-        System.out.println("Nhập vào mã của sách xóa: ");
-        String maDauSach = scanner.nextLine();
-        if (dauSachBL.kiemTra(maDauSach)) {
-            dauSachBL.xoa(maDauSach);
-            System.out.println("Xóa thành công sách có mã: " + maDauSach);
-        } else {
-            System.out.println("Không tồn tại sách có mã: " + maDauSach);
-        }
-
-        System.out.println("\n-----------------------------------------------------------------------------\n");
-    }
-
-    private void xemDanhSach() {
+    public void them() {
         System.out.println();
 //        System.out.println("---------------------------------------\n");
-        System.out.println("DANH SÁCH ");
-        ListDauSach lst = dauSachBL.layDanhSach();
-        lst.sapXepTheoTen();
-        NodeDauSach tg = lst.getHead();
-        System.out.printf("%-15s | %-25s | %-30s | %-15s | %-15s | %-20s |\n",
-                "Mã Đầu Sách ",
-                "Tên Sách",
-                "Thể Loại",
-                "Tác Giả",
-                "Số Lượng",
-                "Trạng thái");
-        System.out.println("-----------------------------------------------------------------------------------------------------------------------------");
-        while (tg != null) {
+        System.out.println("THÊM SÁCH");
+        System.out.println("MỜI NHẬP VÀO CÁC THÔNG TIN:");
 
-            tg.getInfo().hienThi();
-            tg = tg.getNext();
+        String maDauSach, tenSach,theLoai,tacGia,soluong, trangThai;
+
+        do {
+            System.out.print("Nhập vào mã cho sách: ");
+            maDauSach = scanner.nextLine();
+        } while (maDauSach == "");
+        if (!dauSachBL.kiemTra(maDauSach)) {
+            do {
+                System.out.print("Nhập tên sách: ");
+                tenSach = scanner.nextLine();
+            } while (tenSach == "");
+
+            do {
+                System.out.print("Nhập thể loại: ");
+                theLoai = scanner.nextLine();
+            } while (theLoai == "");
+
+            do {
+                System.out.print("Nhập tên tác giả: ");
+                tacGia = scanner.nextLine();
+            } while (tacGia == "");
+            do {
+                System.out.print("Nhập số lượng sách: ");
+                soluong = scanner.nextLine();
+            } while (soluong == "");
+
+            do {
+                System.out.print("Nhập trạng thái : ");
+
+                trangThai = scanner.nextLine();
+            } while (trangThai == "");
+
+            DauSach Dausach = new DauSach( maDauSach, tenSach,theLoai,tacGia,soluong, trangThai);
+            dauSachBL.them(Dausach);
+        } else {
+            System.out.println(
+                    "Đã tồn tại nhân viên có mã: " + maDauSach);
         }
-
-        System.out.println("-----------------------------------------------------------------------------------------------------------------------------\n");
+        System.out.println("\n-----------------------------------------------------------------------------\n");
 
     }
 
-    private void sapXepTheoTen() {
-        System.out.println();
-        System.out.println("DANH SÁCH NHÂN VIÊN");
-        ListDauSach lst = dauSachBL.layDanhSach();
-        lst.sapXepTheoTen();
-        NodeDauSach tg = lst.getHead();
-        System.out.printf("%-15s | %-25s | %-30s | %-15s | %-15s | %-20s |\n",
-                "Mã Đầu Sách ",
-                "Tên Sách",
-                "Thể Loại",
-                "Tác Giả",
-                "Số Lượng",
-                "Trạng thái");
-        System.out.println("-----------------------------------------------------------------------------------------------------------------------------");
-        while (tg != null) {
-            tg.getInfo().hienThi();
-            tg = tg.getNext();
-        }
-
-        System.out.println("-----------------------------------------------------------------------------------------------------------------------------\n");
-
-    }
-
-    private void sua() {
+    public void sua() {
         System.out.println();
 //        System.out.println("---------------------------------------\n");
         System.out.println("SỬA SÁCH");
@@ -169,44 +161,65 @@ public class QLDauSach {
 
     }
 
-    public void them() {
+    public void xoa() {
         System.out.println();
-        System.out.println("------------------------------------\n");
-        System.out.println("THÊM SÁCH");
-        System.out.println("Mời Nhập Vào Các Thông Tin:");
-
-        String maDauSach, tenSach, theloai, tacgia, soluong, trangThai;
-        do {
-            System.out.print("Nhập vào mã cho sách:");
-            maDauSach = scanner.nextLine();
-        } while (maDauSach == "");
-        if (!dauSachBL.kiemTra(maDauSach)) {
-            do {
-                System.out.print("Nhập tên sách: ");
-                tenSach = scanner.nextLine();
-            } while (tenSach == "");
-            do {
-                System.out.print("nhập thể loại:");
-                theloai = scanner.nextLine();
-            } while (theloai == "");
-            do {
-                System.out.print("Nhập tên tác giả");
-                tacgia = scanner.nextLine();
-            } while (tacgia == "");
-            do {
-                System.out.print("Nhập số lượng sách: ");
-                soluong = scanner.nextLine();
-            } while (soluong == "");
-            do {
-                System.out.println("Nhập trạng thái");
-                trangThai = scanner.nextLine();
-            } while (trangThai == "");
-            DauSach Dausach = new DauSach(maDauSach, tenSach, theloai, tacgia, soluong, trangThai);
-            dauSachBL.them(Dausach);
+        System.out.println("XÓA THÔNG TIN SÁCH ");
+        System.out.println("Nhập vào mã của sách xóa: ");
+        String maDauSach = scanner.nextLine();
+        if (dauSachBL.kiemTra(maDauSach)) {
+            dauSachBL.xoa(maDauSach);
+            System.out.println("Xóa thành công sách có mã: " + maDauSach);
         } else {
-            System.out.println("Đã tồn tại: " + maDauSach);
+            System.out.println("Không tồn tại sách có mã: " + maDauSach);
         }
-        System.out.println("\n-------------------------------------------------------------------\n");
+
+        System.out.println("\n-----------------------------------------------------------------------------\n");
+    }
+
+    public void xemDanhSach() {
+        System.out.println();
+//        System.out.println("---------------------------------------\n");
+        System.out.println("DANH SÁCH ");
+        ListDauSach lst = dauSachBL.layDanhSach();
+        lst.sapXepTheoTen();
+        NodeDauSach tg = lst.getHead();
+        System.out.printf("%-15s | %-25s | %-30s | %-15s | %-15s | %-20s |\n",
+                "Mã Đầu Sách ",
+                "Tên Sách",
+                "Thể Loại",
+                "Tác Giả",
+                "Số Lượng",
+                "Trạng thái");
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------------");
+        while (tg != null) {
+
+            tg.getInfo().hienThi();
+            tg = tg.getNext();
+        }
+
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------------\n");
+    }
+
+    public void sapXepTheoTen() {
+        System.out.println();
+        System.out.println("DANH SÁCH NHÂN VIÊN");
+        ListDauSach lst = dauSachBL.layDanhSach();
+        lst.sapXepTheoTen();
+        NodeDauSach tg = lst.getHead();
+        System.out.printf("%-15s | %-25s | %-30s | %-15s | %-15s | %-20s |\n",
+                "Mã Đầu Sách ",
+                "Tên Sách",
+                "Thể Loại",
+                "Tác Giả",
+                "Số Lượng",
+                "Trạng thái");
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------------");
+        while (tg != null) {
+            tg.getInfo().hienThi();
+            tg = tg.getNext();
+        }
+
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------------\n");
     }
 
     public void timKiem() {
@@ -243,11 +256,9 @@ public class QLDauSach {
 
             System.out.println("\n--------------------KẾT THÚC MENU TÌM KIẾM ĐẦU SÁCH-------------------\n");
         } while (true);
-
-
     }
 
-    private void timMa() {
+    public void timMa() {
         System.out.println();
         System.out.println("TÌM KIẾM THEO MÃ ĐẦU SÁCH");
         System.out.print("Nhập vào mã đầu sách cần tìm kiếm: ");
@@ -269,10 +280,35 @@ public class QLDauSach {
             System.out.println("Không có kết quả nào phù hợp.");
         }
         System.out.println("-----------------------------------------------------------------------------------------------------------------------------\n");
-
     }
+    public void timGanMa() {
+        System.out.println();
+        System.out.println("TÌM KIẾM GẦN ĐÚNG THEO MÃ ĐẦU SÁCH");
+        System.out.print("Nhập vào mã đầu sách gần đúng tìm kiếm: ");
+        String maDauSach = scanner.nextLine();
+        ListDauSach lst = dauSachBL.timGanMa(maDauSach);
+        NodeDauSach tg = lst.getHead();
 
-    private void timTen() {
+        System.out.println();
+        if (tg != null) {
+            System.out.printf("%-15s | %-25s | %-30s | %-15s | %-15s | %-20s |\n",
+                    "Mã Đầu Sách ",
+                    "Tên Sách",
+                    "Thể Loại",
+                    "Tác Giả",
+                    "Số lượng",
+                    "Trạng thái");
+            System.out.println("-----------------------------------------------------------------------------------------------------------------------------");
+            while (tg != null) {
+                tg.getInfo().hienThi();
+                tg = tg.getNext();
+            }
+        } else {
+            System.out.println("Không có kết quả nào phù hợp.");
+        }
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------------\n");
+    }
+    public void timTen() {
         System.out.println();
 //        System.out.println("---------------------------------------\n");
         System.out.println("TÌM KIẾM THEO TÊN SÁCH ");
@@ -300,36 +336,8 @@ public class QLDauSach {
             System.out.println("Không có kết quả nào phù hợp.");
         }
         System.out.println("-----------------------------------------------------------------------------------------------------------------------------\n");
-    }
-
-
-
-    private void timGanMa() {
-        System.out.println();
-        System.out.println("TÌM KIẾM GẦN ĐÚNG THEO MÃ ĐẦU SÁCH");
-        System.out.print("Nhập vào mã đầu sách gần đúng tìm kiếm: ");
-        String maDauSach = scanner.nextLine();
-        ListDauSach lst = dauSachBL.timGanMa(maDauSach);
-        NodeDauSach tg = lst.getHead();
-
-        System.out.println();
-        if (tg != null) {
-            System.out.printf("%-15s | %-25s | %-30s | %-15s | %-15s | %-20s |\n",
-                    "Mã Đầu Sách ",
-                    "Tên Sách",
-                    "Thể Loại",
-                    "Tác Giả",
-                    "Số lượng",
-                    "Trạng thái");
-            System.out.println("-----------------------------------------------------------------------------------------------------------------------------");
-            while (tg != null) {
-                tg.getInfo().hienThi();
-                tg = tg.getNext();
-            }
-        } else {
-            System.out.println("Không có kết quả nào phù hợp.");
-        }
-        System.out.println("-----------------------------------------------------------------------------------------------------------------------------\n");
 
     }
+
+
 }

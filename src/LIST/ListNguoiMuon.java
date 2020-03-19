@@ -1,24 +1,24 @@
 package LIST;
-import MUONSACH.PhieuMuon;
+import MUONSACH.NguoiMuon;
 
-public class ListPhieuMuon {
-    private NodePhieuMuon head, tail;
+public class ListNguoiMuon {
+    private NodeNguoiMuon head, tail;
 
-    public ListPhieuMuon() {
+    public ListNguoiMuon() {
         this.head = null;
         this.tail = null;
     }
 
-    public NodePhieuMuon getHead() {
+    public NodeNguoiMuon getHead() {
         return head;
     }
 
-    public NodePhieuMuon getTail() {
+    public NodeNguoiMuon getTail() {
         return tail;
     }
 
-    public void insertHead(PhieuMuon phieuMuon) {
-        NodePhieuMuon newNode = new NodePhieuMuon(phieuMuon);
+    public void insertHead(NguoiMuon nguoiMuon) {
+        NodeNguoiMuon newNode = new NodeNguoiMuon(nguoiMuon);
         if (head == null) {
             head = tail = newNode;
         } else {
@@ -27,8 +27,8 @@ public class ListPhieuMuon {
         }
     }
 
-    public void insertTail(PhieuMuon phieuMuon) {
-        NodePhieuMuon newNode = new NodePhieuMuon(phieuMuon);
+    public void insertTail(NguoiMuon nguoiMuon) {
+        NodeNguoiMuon newNode = new NodeNguoiMuon(nguoiMuon);
         if (head == null) head = tail = newNode;
         else {
             tail.setNext(newNode);      // Gán newNode vào cuối danh sách.
@@ -36,18 +36,18 @@ public class ListPhieuMuon {
         }
     }
 
-    public void deleteNode(NodePhieuMuon nodePhieuMuon) {
-        NodePhieuMuon tg = head;
-        NodePhieuMuon t = tg;
+    public void deleteNode(NodeNguoiMuon nodeNguoiMuon) {
+        NodeNguoiMuon tg = head;
+        NodeNguoiMuon t = tg;
         while (tg != null) {
-            if (tg == nodePhieuMuon) break;
+            if (tg == nodeNguoiMuon) break;
             else {
                 t = tg;
                 tg = tg.getNext();
             }
         }
 
-        if (tg == null) return; // Không tồn tại node.
+        if (tg == null) return; // Không tồn tại nodeMayAnh.
         if (t != null)          // Tồn tại
         {
             t.setNext(tg.getNext());
@@ -58,11 +58,11 @@ public class ListPhieuMuon {
         }
     }
 
-    public void removeNode(NodePhieuMuon nodePhieuMuon) {
-        NodePhieuMuon tg = head;
-        NodePhieuMuon t = tg;
+    public void removeNode(NodeNguoiMuon nodeNguoiMuon) {
+        NodeNguoiMuon tg = head;
+        NodeNguoiMuon t = tg;
         while (tg != null) {
-            if (tg == nodePhieuMuon) {
+            if (tg == nodeNguoiMuon) {
                 break;
             } else {
                 t = tg;
@@ -81,17 +81,18 @@ public class ListPhieuMuon {
 
     }
 
+
     public void sapXepTheoTen() {
-        PhieuMuon tmp;
+        NguoiMuon tmp;
         String loai1;
         String loai2;
         if (head == null) return;
-        NodePhieuMuon tg = head, p;
+        NodeNguoiMuon tg = head, p;
         while (tg.getNext() != null) {
             p = tg.getNext();
-            loai1 = tg.getInfo().getmaNguoiMuon().split(" ")[tg.getInfo().getmaNguoiMuon().split(" ").length - 1];
+            loai1 = tg.getInfo().getTenNguoiMuon().split(" ")[tg.getInfo().getTenNguoiMuon().split(" ").length - 1];
             while (p != null) {
-                loai2 = p.getInfo().getmaNguoiMuon().split(" ")[p.getInfo().getmaNguoiMuon().split(" ").length - 1];
+                loai2 = p.getInfo().getTenNguoiMuon().split(" ")[p.getInfo().getTenNguoiMuon().split(" ").length - 1];
                 if (loai1.compareToIgnoreCase(loai2) > 0) {
                     loai1 = loai2;
                     tmp = tg.getInfo();
@@ -107,32 +108,32 @@ public class ListPhieuMuon {
 
 
 
-    public class NodePhieuMuon {
-        private PhieuMuon info;
-        private NodePhieuMuon next;
+    public class NodeNguoiMuon {
+        private NguoiMuon info;
+        private NodeNguoiMuon next;
 
-        public NodePhieuMuon() {
-            this.info = new PhieuMuon();
+        public NodeNguoiMuon() {
+            this.info = new NguoiMuon();
             next = null;
         }
 
-        public NodePhieuMuon(PhieuMuon info) {
+        public NodeNguoiMuon(NguoiMuon info) {
             this.info = info;
         }
 
-        public PhieuMuon getInfo() {
+        public NguoiMuon getInfo() {
             return info;
         }
 
-        public void setInfo(PhieuMuon info) {
+        public void setInfo(NguoiMuon info) {
             this.info = info;
         }
 
-        public NodePhieuMuon getNext() {
+        public NodeNguoiMuon getNext() {
             return next;
         }
 
-        public void setNext(NodePhieuMuon next) {
+        public void setNext(NodeNguoiMuon next) {
             this.next = next;
         }
     }
